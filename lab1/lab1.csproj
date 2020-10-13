@@ -9,4 +9,8 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="D:\KPI\Test-Console-Lib-main\Test-Console-Lib-main\ConsoleGraphics\ConsoleGraphics.csproj" />
+  </ItemGroup>
+
 </Project>

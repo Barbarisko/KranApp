@@ -17,6 +17,16 @@ namespace lab1.Visualization
                     + "5 - history\n"
                     + "6 - exit\n");
         }
+        public static string[] printmenu2()
+        {
+           return new string[] {"Turn on",
+                    "Turn off",
+                    "Turn around",
+                    "Lift weight",
+                    "Current state",
+                    "History",
+                    "Exit"};            
+        }
         public static void chooseSide()
         {
             Console.WriteLine("left or right?");
@@ -40,6 +50,15 @@ namespace lab1.Visualization
         public static void printhistory(int index)
         {
             Console.WriteLine($"the state and weight at step {index} is : ");
+        }
+
+        public static void printweight(int weight)
+        {
+            Console.WriteLine($"There's {weight} kg on me");
+        }
+        public static void printHistoryMoment(string index)
+        {
+            Console.WriteLine($"Which index(max {index})?");
         }
     }
 }

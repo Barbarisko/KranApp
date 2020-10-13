@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xceed.Wpf.Toolkit;
+using ConsoleGraphics;
 
 namespace lab1.Visualization
 {
@@ -21,24 +22,27 @@ namespace lab1.Visualization
         {
             bool work = true;
 
+            var popUp = new ConsoleGraphics.PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
+
             while (work)
             {
-                TextOutputs.printmenu();
-
-                int res = Convert.ToInt32(Console.ReadLine());
+                //TextOutputs.printmenu();
+                //int res = Convert.ToInt32(Console.ReadLine());
+                int res = popUp.pop();
                 try
                 {
                     if (res >= 0 && res <= 6)
                     {
                         switchfunc(res);
                     }
-                    else { throw new IndexOutOfRangeException("its tooo big"); }
+                    else { throw new IndexOutOfRangeException("not in the range"); }
                 }
                 catch(Exception e )
                 {
-                    Console.WriteLine("Shos ne te. Error = " + e.Message);
+                    ConsoleGrapher.clear();
+                    var errorPopUp = new PopUpInfo(e.Message);
+                    errorPopUp.pop();
                 }
-
             }
         }
 
@@ -48,44 +52,61 @@ namespace lab1.Visualization
             {
                 case 0:
                     KranService.turnOn(kran);
+                    Console.WriteLine("I'm aalive!");
+                    Console.Beep(2000, 2);
                     break;
 
                 case 1:
                     KranService.turnOff(kran);
+                    Console.WriteLine("I'm dead!");
                     break;
 
                 case 2:
-                    TextOutputs.chooseSide();
-                    string s = Console.ReadLine();
+                    //TextOutputs.chooseSide();
+                    //string s = Console.ReadLine();
 
-                    if (s == "left") { KranService.turnAround(false, kran); }
-                    else if (s == "right") { KranService.turnAround(true, kran); }
+                    //if (s == "left") { KranService.turnAround(false, kran); }
+                    //else if (s == "right") { KranService.turnAround(true, kran); }
+                    //else
+                    //{
+                    //    throw new DidntChooseSideException("choose your side");
+                    //}
+
+                    //TextOutputs.sideChosen(s);
+
+                    string s;
+
+                    var popUp = new PopUpMultipleChoise("Choose side", new string[] { "Left", "Right" });
+                    int left_right = popUp.pop();
+                    if(left_right == 0)
+                    {
+                        s = "left";
+                        KranService.turnAround(false, kran);
+                    }
                     else
                     {
-                        throw new DidntChooseSideException("choose your side");
+                        s = "right";
+                        KranService.turnAround(true, kran);
                     }
-                    
-                    TextOutputs.sideChosen(s);
 
+                    new PopUpInfo($"Turned {s}!").pop();
                     break;
 
                 case 3:
                     TextOutputs.inputweight();
 
-                    int w = Convert.ToInt32(Console.ReadLine());
-                    KranService.liftWeight((uint)w, kran);
-                    Console.WriteLine(kran.CurrentWeight);
-
+                    uint w = Convert.ToUInt32(Console.ReadLine());
+                    KranService.liftWeight(w, kran);
+                    TextOutputs.printweight(Convert.ToInt32(kran.CurrentWeight));
                     break;
 
                 case 4:
                     TextOutputs.printstate();
                     Console.WriteLine(KranService.currentState(kran));
-
                     break;
 
                 case 5:
-                    Console.WriteLine("Which index(max " + kran.History.Count.ToString() + ")?");
+                    TextOutputs.printHistoryMoment(kran.History.Count.ToString());
                     int index = Convert.ToInt32(Console.ReadLine()) - 1;
 
                     try

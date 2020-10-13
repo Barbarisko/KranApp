@@ -53,7 +53,6 @@ namespace lab1
 
         public KranModel()
         {
-            Console.WriteLine("kran created");
             history = new Queue<state>();
             angle = angles.north;
         }
