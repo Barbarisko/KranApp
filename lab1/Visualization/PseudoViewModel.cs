@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Xceed.Wpf.Toolkit;
 using ConsoleGraphics;
 
 namespace lab1.Visualization
 {
     public class PseudoViewModel
     {
-        public IKranService KranService;
+        private IKranService KranService;
         private KranModel kran;
 
         public PseudoViewModel()
@@ -22,7 +21,7 @@ namespace lab1.Visualization
         {
             bool work = true;
 
-            var popUp = new ConsoleGraphics.PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
+            var popUp = new PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
 
             while (work)
             {
@@ -35,7 +34,10 @@ namespace lab1.Visualization
                     {
                         switchfunc(res);
                     }
-                    else { throw new IndexOutOfRangeException("not in the range"); }
+                    else 
+                    {
+                        throw new IndexOutOfRangeException("not in the range"); 
+                    }
                 }
                 catch(Exception e )
                 {
@@ -52,13 +54,12 @@ namespace lab1.Visualization
             {
                 case 0:
                     KranService.turnOn(kran);
-                    Console.WriteLine("I'm aalive!");
-                    Console.Beep(2000, 2);
+                    TextOutputs.alive();
                     break;
 
                 case 1:
                     KranService.turnOff(kran);
-                    Console.WriteLine("I'm dead!");
+                    TextOutputs.dead();
                     break;
 
                 case 2:
@@ -125,7 +126,7 @@ namespace lab1.Visualization
 
                     break;
             }
-        }
+        }    
     }
 }
             

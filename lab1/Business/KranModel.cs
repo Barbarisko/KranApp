@@ -26,7 +26,7 @@ namespace lab1
         angles currangle { get; set; }
         uint weight { get; set; }
 
-        override public string ToString() 
+        override public string ToString()
         {
             string res = "";
             switch (currangle)
@@ -50,7 +50,6 @@ namespace lab1
 
     public class KranModel
     {
-
         public KranModel()
         {
             history = new Queue<state>();

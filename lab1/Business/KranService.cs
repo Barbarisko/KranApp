@@ -8,10 +8,6 @@ namespace lab1
 {
     class KranService : IKranService
     {
-        public KranService()
-        {
-
-        }
 
         public void turnOn(KranModel kran)
         {
@@ -67,7 +63,7 @@ namespace lab1
 
             if (weight <= kran.MaxWeight)
             {
-                kran.CurrentWeight = weight;
+                kran.CurrentWeight += weight;
                 anglecount = 0;
                 kran.History.Enqueue(new state(kran.Angle, kran.CurrentWeight));
             }
@@ -88,7 +84,9 @@ namespace lab1
             {
                 return kran.History.ElementAt(index).ToString();
             }
-            throw new IndexOutOfRangeException("its so biiig");
+            throw new IndexOutOfRangeException("Too big");
         }
+
+
     }
 }

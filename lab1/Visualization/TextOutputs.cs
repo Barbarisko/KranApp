@@ -27,6 +27,14 @@ namespace lab1.Visualization
                     "History",
                     "Exit"};            
         }
+        public static void alive()
+        {
+            Console.WriteLine("I'm aalive!");
+        }
+        public static void dead()
+        {
+            Console.WriteLine("I'm dead!");
+        }
         public static void chooseSide()
         {
             Console.WriteLine("left or right?");
@@ -60,5 +68,7 @@ namespace lab1.Visualization
         {
             Console.WriteLine($"Which index(max {index})?");
         }
+
+
     }
 }
