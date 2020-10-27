@@ -21,7 +21,8 @@ namespace lab1.Visualization
         {
             bool work = true;
 
-            var popUp = new PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
+            TextOutputs.printmenu();
+            //var popUp = new PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
 
             while (work)
             {

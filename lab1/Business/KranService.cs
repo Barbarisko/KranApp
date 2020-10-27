@@ -1,4 +1,5 @@
-﻿using lab1.Exceptions;
+﻿using lab1.Business;
+using lab1.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,6 @@ namespace lab1
 {
     class KranService : IKranService
     {
-
         public void turnOn(KranModel kran)
         {
             kran.Power = true;
@@ -51,7 +51,7 @@ namespace lab1
             }
             anglecount += 1;
 
-            kran.History.Enqueue(new state(kran.Angle, kran.CurrentWeight));
+            kran.History.Add(new State(kran.Angle, kran.CurrentWeight));
         }
 
         public void liftWeight(uint weight, KranModel kran)
@@ -65,7 +65,7 @@ namespace lab1
             {
                 kran.CurrentWeight += weight;
                 anglecount = 0;
-                kran.History.Enqueue(new state(kran.Angle, kran.CurrentWeight));
+                kran.History.Add(new State(kran.Angle, kran.CurrentWeight));
             }
             else
             {
@@ -73,9 +73,31 @@ namespace lab1
             }
         }
 
+        public static string stateToString(State state)
+        {
+            string name = "";
+            switch (state.Currangle)
+            {
+                case angles.north:
+                    name = "north";
+                    break;
+                case angles.east:
+                    name = "east";
+                    break;
+                case angles.south:
+                    name = "south";
+                    break;
+                case angles.west:
+                    name = "west";
+                    break;
+            }
+            return name + ", weight: " + state.Weight.ToString();
+        }
+
         public string currentState(KranModel kran)
         {
-            return kran.History.Last().ToString();
+            return stateToString(kran.History.Last());
+
         }
 
         public string getHistoryAtMoment(int index, KranModel kran)
@@ -84,7 +106,7 @@ namespace lab1
             {
                 return kran.History.ElementAt(index).ToString();
             }
-            throw new IndexOutOfRangeException("Too big");
+           throw new IndexOutOfRangeException("Too big");
         }
 
 

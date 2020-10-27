@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lab1.Business;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace lab1
         void liftWeight(uint weight, KranModel kran);
         string currentState(KranModel kran);
         string getHistoryAtMoment(int index, KranModel kran);
+        string stateToString(State state);
 
     }
 }

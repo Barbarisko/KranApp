@@ -1,4 +1,5 @@
-﻿using lab1.Exceptions;
+﻿using lab1.Business;
+using lab1.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace lab1
         south,
         west
     }
-    public struct state
+    /*public struct state
     {
         public state(angles a, uint w)
         {
@@ -28,45 +29,48 @@ namespace lab1
 
         override public string ToString()
         {
-            string res = "";
+            string name = "";
             switch (currangle)
             {
                 case angles.north:
-                    res = "north";
+                    name = "north";
                     break;
                 case angles.east:
-                    res = "east";
+                    name = "east";
                     break;
                 case angles.south:
-                    res = "south";
+                    name = "south";
                     break;
                 case angles.west:
-                    res = "west";
+                    name = "west";
                     break;
             }
-            return res + ", weight: " + weight.ToString();
+            return name + ", weight: " + weight.ToString();
         }
-    }
+    }*/
 
     public class KranModel
     {
         public KranModel()
         {
-            history = new Queue<state>();
+            history = new List<State>();
             angle = angles.north;
         }
 
         private bool power;
         private const uint maxWeight = 200;
         private uint currentWeight;
-        private Queue<state> history;
+        //private Queue<state> history;
+        private List<State> history;
         private angles angle;
 
         public bool Power{ set { power = value; } get { return power; } }
         public uint MaxWeight { get { return maxWeight; } }
         public uint CurrentWeight { set { currentWeight = value; } get { return currentWeight; } }
         public angles Angle { set { angle = value; } get { return angle; }}// north direction
-        public Queue<state> History { set { history = value; } get { return history; } }
+        public List<State> History { set { history = value; } get { return history; } }
+
+        //public Queue<state> History { set { history = value; } get { return history; } }
     }
 
 
