@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using ConsoleGraphics;
+using System.Security.Cryptography.X509Certificates;
+using System.Linq;
 
 namespace lab1.Visualization
 {
@@ -20,36 +22,67 @@ namespace lab1.Visualization
         public void EnableActions()
         {
             bool work = true;
-
-            TextOutputs.printmenu();
-            //var popUp = new PopUpMultipleChoise("Select a possible option: ", TextOutputs.printmenu2());
-
             while (work)
-            {
-                //TextOutputs.printmenu();
-                //int res = Convert.ToInt32(Console.ReadLine());
-                int res = popUp.pop();
-                try
+            {           
+               TextOutputs.printmenu();
+               try
                 {
-                    if (res >= 0 && res <= 6)
+                    string res = Console.ReadLine();
+
+                    if (IsAllAlphabetic(res) || res == "\n" )
                     {
-                        switchfunc(res);
+                        throw new IndexOutOfRangeException("only digits allowed");
                     }
+                    else if (Convert.ToInt32(res) >= 0 && Convert.ToInt32(res) <= 6)
+                    {
+                        Swithc(Convert.ToInt32(res));
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    
                     else 
                     {
                         throw new IndexOutOfRangeException("not in the range"); 
                     }
                 }
-                catch(Exception e )
+                catch(DidntChooseSideException e)
                 {
-                    ConsoleGrapher.clear();
-                    var errorPopUp = new PopUpInfo(e.Message);
-                    errorPopUp.pop();
+                    CatchActions(e);
                 }
+                catch (HeavyCargoException e)
+                {
+                    CatchActions(e);
+                }
+                catch (NotTurnedOnException e)
+                {
+                    CatchActions(e);
+                }
+                catch (TakeCargoException e)
+                {
+                    CatchActions(e);
+                }
+                catch (WrongActionException e)
+                {
+                    CatchActions(e);
+                }
+                catch (IndexOutOfRangeException e)
+                {
+                    CatchActions(e);
+                }
+                catch (FormatException e)
+                {
+                    CatchActions(e);
+                }
+                //catch (Exception e )
+                //{
+                //    Console.Clear();
+                //    Console.WriteLine(e.Message);
+                //    Console.ReadKey();
+                //}
             }
         }
 
-        private void switchfunc(int res)
+        private void Swithc(int res)
         {
             switch (res)
             {
@@ -64,34 +97,23 @@ namespace lab1.Visualization
                     break;
 
                 case 2:
-                    //TextOutputs.chooseSide();
-                    //string s = Console.ReadLine();
+                    TextOutputs.chooseSide();
+                    string s = Console.ReadLine();
 
-                    //if (s == "left") { KranService.turnAround(false, kran); }
-                    //else if (s == "right") { KranService.turnAround(true, kran); }
-                    //else
-                    //{
-                    //    throw new DidntChooseSideException("choose your side");
-                    //}
-
-                    //TextOutputs.sideChosen(s);
-
-                    string s;
-
-                    var popUp = new PopUpMultipleChoise("Choose side", new string[] { "Left", "Right" });
-                    int left_right = popUp.pop();
-                    if(left_right == 0)
-                    {
-                        s = "left";
-                        KranService.turnAround(false, kran);
+                    if (s == "left") 
+                    { 
+                        KranService.turnAround(false, kran); 
+                    }
+                    else if (s == "right") 
+                    { 
+                        KranService.turnAround(true, kran); 
                     }
                     else
                     {
-                        s = "right";
-                        KranService.turnAround(true, kran);
+                        throw new DidntChooseSideException("type in only sides!");
                     }
 
-                    new PopUpInfo($"Turned {s}!").pop();
+                    TextOutputs.sideChosen(s);
                     break;
 
                 case 3:
@@ -111,23 +133,33 @@ namespace lab1.Visualization
                     TextOutputs.printHistoryMoment(kran.History.Count.ToString());
                     int index = Convert.ToInt32(Console.ReadLine()) - 1;
 
-                    try
-                    {
-                        Console.WriteLine(KranService.getHistoryAtMoment(index, kran));
-                    }
-                    catch(Exception e)
-                    {
-                        Console.WriteLine("Error " + e.Message);
-                    }
-                    break;
+                    Console.WriteLine(KranService.getHistoryAtMoment(index, kran));
+                     break;
                 case 6:
                     Environment.Exit(0);
                     break;
                 default:
 
                     break;
+            }            
+        }
+        public void CatchActions(Exception e)
+        {
+            Console.Clear();
+            Console.WriteLine(e.Message);
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        bool IsAllAlphabetic(string value)
+        {
+            foreach (char c in value)
+            {
+                if (!char.IsLetter(c))
+                    return false;
             }
-        }    
+            return true;
+        }
     }
 }
             

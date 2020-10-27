@@ -29,11 +29,11 @@ namespace lab1.Visualization
         }
         public static void alive()
         {
-            Console.WriteLine("I'm aalive!");
+            Console.WriteLine("I'm aalive!\n");
         }
         public static void dead()
         {
-            Console.WriteLine("I'm dead!");
+            Console.WriteLine("I'm dead!\n");
         }
         public static void chooseSide()
         {
@@ -42,7 +42,7 @@ namespace lab1.Visualization
 
         public static void sideChosen(string s)
         {
-            Console.WriteLine($"Turned {s} !");
+            Console.WriteLine($"Turned {s} !\n");
         }
 
         public static void inputweight()
@@ -62,11 +62,11 @@ namespace lab1.Visualization
 
         public static void printweight(int weight)
         {
-            Console.WriteLine($"There's {weight} kg on me");
+            Console.WriteLine($"There's {weight} kg on me\n");
         }
         public static void printHistoryMoment(string index)
         {
-            Console.WriteLine($"Which index(max {index})?");
+            Console.WriteLine($"At which index(max {index})?");
         }
 
 

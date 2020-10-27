@@ -60,7 +60,6 @@ namespace lab1
             {
                 throw new NotTurnedOnException("turn me on");
             }
-
             if (weight <= kran.MaxWeight)
             {
                 kran.CurrentWeight += weight;
@@ -73,7 +72,7 @@ namespace lab1
             }
         }
 
-        public static string stateToString(State state)
+        public string stateToString(State state)
         {
             string name = "";
             switch (state.Currangle)
@@ -96,19 +95,28 @@ namespace lab1
 
         public string currentState(KranModel kran)
         {
+            if (!kran.Power)
+            {
+                throw new NotTurnedOnException("turn me on");
+            }
+            else if (kran.History.Count == 0)
+            {
+                throw new IndexOutOfRangeException("no records available");
+            }
             return stateToString(kran.History.Last());
-
         }
 
         public string getHistoryAtMoment(int index, KranModel kran)
         {
-            if(kran.History.Count != 0 && index <= kran.History.Count)
+            if (!kran.Power)
+            {
+                throw new NotTurnedOnException("turn me on");
+            }
+            if (kran.History.Count != 0 && index <= kran.History.Count)
             {
                 return kran.History.ElementAt(index).ToString();
             }
-           throw new IndexOutOfRangeException("Too big");
+            throw new IndexOutOfRangeException("not in the range");
         }
-
-
     }
 }
