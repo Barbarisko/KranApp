@@ -17,16 +17,6 @@ namespace lab1.Visualization
                     + "5 - history\n"
                     + "6 - exit\n");
         }
-        public static string[] printmenu2()
-        {
-           return new string[] {"Turn on",
-                    "Turn off",
-                    "Turn around",
-                    "Lift weight",
-                    "Current state",
-                    "History",
-                    "Exit"};            
-        }
         public static void alive()
         {
             Console.WriteLine("I'm aalive!\n");
@@ -68,7 +58,5 @@ namespace lab1.Visualization
         {
             Console.WriteLine($"At which index(max {index})?");
         }
-
-
     }
 }

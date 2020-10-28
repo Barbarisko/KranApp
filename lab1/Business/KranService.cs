@@ -26,28 +26,28 @@ namespace lab1
         {
             if (!kran.Power)
             {
-                throw new NotTurnedOnException("turn me on");
+                throw new NotTurnedOnException("Turn me on first!");
             }
             if (anglecount == 1)
             {
-                throw new TakeCargoException("should take weight first");
+                throw new TakeCargoException("First take weight, then rotate!");
             }
             if (clockwise == true)
             {
-                if (kran.Angle < angles.west)
+                if (kran.Angle < Angles.west)
                 {
                     kran.Angle += 1;
                 }
                 else
                 {
-                    kran.Angle = angles.north;
+                    kran.Angle = Angles.north;
                 }
             }
             else
             {
                 if (kran.Angle > 0)
                     kran.Angle -= 1;
-                else kran.Angle = angles.west;
+                else kran.Angle = Angles.west;
             }
             anglecount += 1;
 
@@ -58,7 +58,7 @@ namespace lab1
         {
             if (!kran.Power)
             {
-                throw new NotTurnedOnException("turn me on");
+                throw new NotTurnedOnException("Turn me on first!");
             }
             if (weight <= kran.MaxWeight)
             {
@@ -68,7 +68,7 @@ namespace lab1
             }
             else
             {
-                throw new HeavyCargoException("more than 200 kg");
+                throw new HeavyCargoException("More than 200 kg!");
             }
         }
 
@@ -77,17 +77,17 @@ namespace lab1
             string name = "";
             switch (state.Currangle)
             {
-                case angles.north:
-                    name = "north";
+                case Angles.north:
+                    name = "North";
                     break;
-                case angles.east:
-                    name = "east";
+                case Angles.east:
+                    name = "East";
                     break;
-                case angles.south:
-                    name = "south";
+                case Angles.south:
+                    name = "South";
                     break;
-                case angles.west:
-                    name = "west";
+                case Angles.west:
+                    name = "West";
                     break;
             }
             return name + ", weight: " + state.Weight.ToString();
@@ -97,11 +97,11 @@ namespace lab1
         {
             if (!kran.Power)
             {
-                throw new NotTurnedOnException("turn me on");
+                throw new NotTurnedOnException("Turn me on first!");
             }
             else if (kran.History.Count == 0)
             {
-                throw new IndexOutOfRangeException("no records available");
+                throw new WrongActionException("No records available.");
             }
             return stateToString(kran.History.Last());
         }
@@ -110,13 +110,17 @@ namespace lab1
         {
             if (!kran.Power)
             {
-                throw new NotTurnedOnException("turn me on");
+                throw new NotTurnedOnException("Turn me on first!");
+            }
+            else if (kran.History.Count == 0)
+            {
+                throw new WrongActionException("No records available.");
             }
             if (kran.History.Count != 0 && index <= kran.History.Count)
             {
-                return kran.History.ElementAt(index).ToString();
+                return stateToString(kran.History.ElementAt(index));
             }
-            throw new IndexOutOfRangeException("not in the range");
+            throw new WrongActionException("Index not in the range of records.");
         }
     }
 }

@@ -9,7 +9,6 @@ namespace lab1
     {      
         static void Main(string[] args)
         {            
-            //ConsoleGrapher.init(100, 20, new string[0]);
             PseudoViewModel model = new PseudoViewModel();
             model.EnableActions();
         }

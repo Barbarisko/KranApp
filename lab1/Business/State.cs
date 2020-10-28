@@ -6,14 +6,14 @@ namespace lab1.Business
 {
     public class State
     {
-        public State(angles a, uint w)
+        public State(Angles a, uint w)
         {
             Currangle = a;
             Weight = w;
         }
-        private angles currangle;
+        private Angles currangle;
         private uint weight;
-        public angles Currangle { set { currangle = value; } get { return currangle; } }
+        public Angles Currangle { set { currangle = value; } get { return currangle; } }
         public uint Weight { set { weight = value; } get { return weight; } }
     }
 }

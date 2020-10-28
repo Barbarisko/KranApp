@@ -28,21 +28,21 @@ namespace lab1.Visualization
                try
                 {
                     string res = Console.ReadLine();
+                    
 
-                    if (IsAllAlphabetic(res) || res == "\n" )
-                    {
-                        throw new IndexOutOfRangeException("only digits allowed");
-                    }
-                    else if (Convert.ToInt32(res) >= 0 && Convert.ToInt32(res) <= 6)
+                    //if (IsAllAlphabetic(res) || res == "\n" )
+                    //{
+                    //    throw new WrongActionException("wtf have you typed? Digits only!");
+                    //}
+                    if (Check(res) && Convert.ToInt32(res) >= 0 && Convert.ToInt32(res) <= 6)
                     {
                         Swithc(Convert.ToInt32(res));
                         Console.ReadKey();
                         Console.Clear();
-                    }
-                    
+                    }                    
                     else 
                     {
-                        throw new IndexOutOfRangeException("not in the range"); 
+                        throw new WrongActionException("Number not in the range of commands!");
                     }
                 }
                 catch(DidntChooseSideException e)
@@ -62,10 +62,6 @@ namespace lab1.Visualization
                     CatchActions(e);
                 }
                 catch (WrongActionException e)
-                {
-                    CatchActions(e);
-                }
-                catch (IndexOutOfRangeException e)
                 {
                     CatchActions(e);
                 }
@@ -110,7 +106,7 @@ namespace lab1.Visualization
                     }
                     else
                     {
-                        throw new DidntChooseSideException("type in only sides!");
+                        throw new DidntChooseSideException("Type in only sides!");
                     }
 
                     TextOutputs.sideChosen(s);
@@ -119,10 +115,14 @@ namespace lab1.Visualization
                 case 3:
                     TextOutputs.inputweight();
 
-                    uint w = Convert.ToUInt32(Console.ReadLine());
-                    KranService.liftWeight(w, kran);
+                    var w = Console.ReadLine();
+                    if(Check(w))
+                    {
+                    KranService.liftWeight(Convert.ToUInt32(w), kran);
                     TextOutputs.printweight(Convert.ToInt32(kran.CurrentWeight));
+                    }
                     break;
+
 
                 case 4:
                     TextOutputs.printstate();
@@ -131,9 +131,14 @@ namespace lab1.Visualization
 
                 case 5:
                     TextOutputs.printHistoryMoment(kran.History.Count.ToString());
-                    int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                    var index = Console.ReadLine();
+                    if (Check(index))
+                    {
+                        index = Convert.ToInt32(index) - 1;
+                        Console.WriteLine(KranService.getHistoryAtMoment(Convert.ToInt32(index), kran));
 
-                    Console.WriteLine(KranService.getHistoryAtMoment(index, kran));
+                    }
+
                      break;
                 case 6:
                     Environment.Exit(0);
@@ -157,6 +162,16 @@ namespace lab1.Visualization
             {
                 if (!char.IsLetter(c))
                     return false;
+            }
+            return true;
+        }
+
+        bool Check(string res)
+        {
+
+            if (IsAllAlphabetic(res) || res == "\n")
+            {
+                throw new WrongActionException("wtf have you typed? Digits only!");
             }
             return true;
         }
