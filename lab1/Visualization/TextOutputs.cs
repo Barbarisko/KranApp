@@ -8,7 +8,9 @@ namespace lab1.Visualization
     {
         public static void printmenu()
         {
-            Console.WriteLine("Select a possible option: \n"
+            Console.WriteLine("You are in a kran simulator.\n " +
+                " Kran will not work unless you switch in on\n" +
+                " Select a possible option: \n"
                     + "0 - turn on\n"
                     + "1 - turn off\n"
                     + "2 - turn around\n"
@@ -23,7 +25,7 @@ namespace lab1.Visualization
         }
         public static void dead()
         {
-            Console.WriteLine("I'm dead!\n");
+            Console.WriteLine("I'm dead :(\n");
         }
         public static void chooseSide()
         {

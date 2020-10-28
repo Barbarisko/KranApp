@@ -116,11 +116,8 @@ namespace lab1
             {
                 throw new WrongActionException("No records available.");
             }
-            if (kran.History.Count != 0 && index <= kran.History.Count)
-            {
-                return stateToString(kran.History.ElementAt(index));
+            
+                return stateToString(kran.History[index]);
             }
-            throw new WrongActionException("Index not in the range of records.");
-        }
     }
 }

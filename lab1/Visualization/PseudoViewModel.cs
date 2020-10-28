@@ -69,6 +69,10 @@ namespace lab1.Visualization
                 {
                     CatchActions(e);
                 }
+                catch (ArgumentOutOfRangeException e)
+                {
+                    CatchActions(e);
+                }
                 //catch (Exception e )
                 //{
                 //    Console.Clear();
@@ -131,15 +135,10 @@ namespace lab1.Visualization
 
                 case 5:
                     TextOutputs.printHistoryMoment(kran.History.Count.ToString());
-                    var index = Console.ReadLine();
-                    if (Check(index))
-                    {
-                        index = Convert.ToInt32(index) - 1;
-                        Console.WriteLine(KranService.getHistoryAtMoment(Convert.ToInt32(index), kran));
+                    int index = Convert.ToInt32(Console.ReadLine()) - 1;
+                    Console.WriteLine(KranService.getHistoryAtMoment(Convert.ToInt32(index), kran));
+                    break;
 
-                    }
-
-                     break;
                 case 6:
                     Environment.Exit(0);
                     break;
