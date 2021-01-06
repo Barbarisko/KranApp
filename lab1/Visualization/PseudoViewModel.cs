@@ -5,6 +5,7 @@ using System.Text;
 using ConsoleGraphics;
 using System.Security.Cryptography.X509Certificates;
 using System.Linq;
+using lab1.Business;
 
 namespace lab1.Visualization
 {
@@ -24,16 +25,11 @@ namespace lab1.Visualization
             bool work = true;
             while (work)
             {           
-               TextOutputs.printmenu();
+               TextOutputs.Printmenu();
                try
                 {
                     string res = Console.ReadLine();
-                    
 
-                    //if (IsAllAlphabetic(res) || res == "\n" )
-                    //{
-                    //    throw new WrongActionException("wtf have you typed? Digits only!");
-                    //}
                     if (Check(res) && Convert.ToInt32(res) >= 0 && Convert.ToInt32(res) <= 6)
                     {
                         Swithc(Convert.ToInt32(res));
@@ -87,56 +83,57 @@ namespace lab1.Visualization
             switch (res)
             {
                 case 0:
-                    KranService.turnOn(kran);
-                    TextOutputs.alive();
+                    KranService.TurnOn(kran);
+                    TextOutputs.Alive();
                     break;
 
                 case 1:
-                    KranService.turnOff(kran);
-                    TextOutputs.dead();
+                    KranService.TurnOff(kran);
+                    TextOutputs.Dead();
                     break;
 
                 case 2:
-                    TextOutputs.chooseSide();
+                    TextOutputs.ChooseSide();
                     string s = Console.ReadLine();
 
                     if (s == "left") 
                     { 
-                        KranService.turnAround(false, kran); 
+                        KranService.TurnAround(false, kran); 
                     }
                     else if (s == "right") 
                     { 
-                        KranService.turnAround(true, kran); 
+                        KranService.TurnAround(true, kran); 
                     }
                     else
                     {
                         throw new DidntChooseSideException("Type in only sides!");
                     }
 
-                    TextOutputs.sideChosen(s);
+                    TextOutputs.SideChosen(s);
                     break;
 
                 case 3:
-                    TextOutputs.inputweight();
+                    TextOutputs.Inputweight();
 
                     var w = Console.ReadLine();
                     if(Check(w))
                     {
-                    KranService.liftWeight(Convert.ToUInt32(w), kran);
-                    TextOutputs.printweight(Convert.ToInt32(kran.CurrentWeight));
+                    KranService.LiftWeight(Convert.ToUInt32(w), kran);
+                    TextOutputs.Printweight(Convert.ToInt32(kran.CurrentWeight));
                     }
                     break;
 
 
                 case 4:
-                    TextOutputs.printstate();
-                    Console.WriteLine(KranService.currentState(kran));
+                    TextOutputs.Printstate();
+                    Console.WriteLine(StateToString(KranService.CurrentState(kran)));
                     break;
 
                 case 5:
-                    TextOutputs.printHistoryMoment(kran.History.Count.ToString());
+                    TextOutputs.PrintHistoryMoment(kran.History.Count.ToString());
                     int index = Convert.ToInt32(Console.ReadLine()) - 1;
-                    Console.WriteLine(KranService.getHistoryAtMoment(Convert.ToInt32(index), kran));
+                    Console.WriteLine(
+                        StateToString(KranService.GetHistoryAtMoment(Convert.ToInt32(index), kran)));
                     break;
 
                 case 6:
@@ -173,6 +170,27 @@ namespace lab1.Visualization
                 throw new WrongActionException("wtf have you typed? Digits only!");
             }
             return true;
+        }
+
+        public string StateToString(State state)
+        {
+            string name = "";
+            switch (state.Currangle)
+            {
+                case Angles.north:
+                    name = "North";
+                    break;
+                case Angles.east:
+                    name = "East";
+                    break;
+                case Angles.south:
+                    name = "South";
+                    break;
+                case Angles.west:
+                    name = "West";
+                    break;
+            }
+            return name + ", weight: " + state.Weight.ToString();
         }
     }
 }

@@ -6,10 +6,10 @@ namespace lab1.Visualization
 {
     public static class TextOutputs
     {
-        public static void printmenu()
+        public static void Printmenu()
         {
             Console.WriteLine("You are in a kran simulator.\n " +
-                " Kran will not work unless you switch in on\n" +
+                " Kran will not work properly unless you switch in on\n" +
                 " Select a possible option: \n"
                     + "0 - turn on\n"
                     + "1 - turn off\n"
@@ -19,44 +19,45 @@ namespace lab1.Visualization
                     + "5 - history\n"
                     + "6 - exit\n");
         }
-        public static void alive()
+       
+        public static void Alive()
         {
             Console.WriteLine("I'm aalive!\n");
         }
-        public static void dead()
+        public static void Dead()
         {
             Console.WriteLine("I'm dead :(\n");
         }
-        public static void chooseSide()
+        public static void ChooseSide()
         {
             Console.WriteLine("left or right?");
         }
 
-        public static void sideChosen(string s)
+        public static void SideChosen(string s)
         {
             Console.WriteLine($"Turned {s} !\n");
         }
 
-        public static void inputweight()
+        public static void Inputweight()
         {
             Console.WriteLine("input weight");
         }
 
-        public static void printstate()
+        public static void Printstate()
         {
           Console.WriteLine("the current state and weight is : ");
         }
 
-        public static void printhistory(int index)
+        public static void Printhistory(int index)
         {
             Console.WriteLine($"the state and weight at step {index} is : ");
         }
 
-        public static void printweight(int weight)
+        public static void Printweight(int weight)
         {
             Console.WriteLine($"There's {weight} kg on me\n");
         }
-        public static void printHistoryMoment(string index)
+        public static void PrintHistoryMoment(string index)
         {
             Console.WriteLine($"At which index(max {index})?");
         }

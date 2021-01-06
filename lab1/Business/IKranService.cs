@@ -7,13 +7,12 @@ namespace lab1
 {
     public interface IKranService
     {
-        void turnOn(KranModel kran);
-        void turnOff(KranModel kran);
-        void turnAround(bool clockwise, KranModel kran);
-        void liftWeight(uint weight, KranModel kran);
-        string currentState(KranModel kran);
-        string getHistoryAtMoment(int index, KranModel kran);
-        string stateToString(State state);
+        void TurnOn(KranModel kran);
+        void TurnOff(KranModel kran);
+        void TurnAround(bool clockwise, KranModel kran);
+        void LiftWeight(uint weight, KranModel kran);
+        State CurrentState(KranModel kran);
+        State GetHistoryAtMoment(int index, KranModel kran);
 
     }
 }

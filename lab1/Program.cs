@@ -1,7 +1,6 @@
 ﻿using lab1.Visualization;
 using System;
 using System.Linq.Expressions;
-using ConsoleGraphics;
 
 namespace lab1
 {

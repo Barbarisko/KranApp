@@ -9,12 +9,12 @@ namespace lab1
 {
     class KranService : IKranService
     {
-        public void turnOn(KranModel kran)
+        public void TurnOn(KranModel kran)
         {
             kran.Power = true;
         }
 
-        public void turnOff(KranModel kran)
+        public void TurnOff(KranModel kran)
         {
             kran.Power = false;
             kran.History.Clear();
@@ -22,7 +22,7 @@ namespace lab1
 
         int anglecount = 0;
 
-        public void turnAround(bool clockwise, KranModel kran)
+        public void TurnAround(bool clockwise, KranModel kran)
         {
             if (!kran.Power)
             {
@@ -54,7 +54,7 @@ namespace lab1
             kran.History.Add(new State(kran.Angle, kran.CurrentWeight));
         }
 
-        public void liftWeight(uint weight, KranModel kran)
+        public void LiftWeight(uint weight, KranModel kran)
         {
             if (!kran.Power)
             {
@@ -72,28 +72,8 @@ namespace lab1
             }
         }
 
-        public string stateToString(State state)
-        {
-            string name = "";
-            switch (state.Currangle)
-            {
-                case Angles.north:
-                    name = "North";
-                    break;
-                case Angles.east:
-                    name = "East";
-                    break;
-                case Angles.south:
-                    name = "South";
-                    break;
-                case Angles.west:
-                    name = "West";
-                    break;
-            }
-            return name + ", weight: " + state.Weight.ToString();
-        }
 
-        public string currentState(KranModel kran)
+        public State CurrentState(KranModel kran)
         {
             if (!kran.Power)
             {
@@ -103,21 +83,21 @@ namespace lab1
             {
                 throw new WrongActionException("No records available.");
             }
-            return stateToString(kran.History.Last());
+            return kran.History.Last();
         }
 
-        public string getHistoryAtMoment(int index, KranModel kran)
+        public State GetHistoryAtMoment(int index, KranModel kran)
         {
             if (!kran.Power)
             {
                 throw new NotTurnedOnException("Turn me on first!");
             }
+
             else if (kran.History.Count == 0)
             {
                 throw new WrongActionException("No records available.");
-            }
-            
-                return stateToString(kran.History[index]);
-            }
+            }            
+            return kran.History[index];
+        }
     }
 }
